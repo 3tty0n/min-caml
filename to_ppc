@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ln -sf PowerPC/{*.ml{,i},libmincaml.S} .
+ln -sf PowerPC/{*.ml{,i},libmincaml.S,Makefile} .
 cd test; ln -sf PowerPC/{,too}manyargs.ml .; cd ..
 cd shootout; ln -sf PowerPC/Makefile .; cd ..
 cd bytemark; ln -sf PowerPC/Makefile .; cd ..

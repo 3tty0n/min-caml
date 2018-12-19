@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ln -sf SPARC/{*.ml{,i},libmincaml.S} .
+ln -sf SPARC/{*.ml{,i},libmincaml.S,Makefile} .
 cd test; ln -sf SPARC/{,too}manyargs.ml .; cd ..
 cd shootout; ln -sf SPARC/Makefile .; cd ..
 cd bytemark; ln -sf SPARC/Makefile .; cd ..
