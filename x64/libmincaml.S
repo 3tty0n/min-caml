@@ -20,7 +20,8 @@ min_caml_print_newline:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	ALIGNSTACK1
-	movq	$10, %rdi
+	#pushq	$10
+  movq  $10, %rdi
 	call	U(putchar)
 	movq	%rbp, %rsp
 	popq	%rbp
@@ -30,10 +31,14 @@ min_caml_print_int:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	ALIGNSTACK2
+#  movq  %rsi, %r12
+#  movq  %rdi, %r13
   movq  %rax, %rsi
   movq  $format_int, %rdi
   movq  $0, %rax
 	call	U(printf)
+#  movq  %r12, %rsi
+#  movq  %r13, %rdi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -120,7 +125,7 @@ min_caml_create_array:
 	movq	%rax, %rcx
 	movq	min_caml_hp, %rax
 	movq	%rcx, %rdx
-	shlq	$2, %rdx
+	shlq	$3, %rdx
 	addq	%rdx, min_caml_hp
 create_array_loop:
 	cmpq	$0, %rcx
@@ -133,7 +138,7 @@ create_array_exit:
 	ret
 create_array_cont:
 	decq	%rcx
-	movq	%rbx, (%rax,%rcx,4)
+	movq	%rbx, (%rax,%rcx,8)
 	jmp	create_array_loop
 .globl min_caml_create_float_array
 min_caml_create_float_array:
