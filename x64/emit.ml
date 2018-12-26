@@ -275,9 +275,7 @@ let f oc (Prog(data, fundefs, e)) =
   Printf.fprintf oc "\tpushq\t%%rsi\n";
   Printf.fprintf oc "\tpushq\t%%rdi\n";
   Printf.fprintf oc "\tpushq\t%%rbp\n";
-  (*Printf.fprintf oc "\tmovq\t32(%%rsp),%s\n" reg_sp;*)
   Printf.fprintf oc "\tmovq\t%%rdi,%s\n" reg_sp;
-  (*Printf.fprintf oc "\tmovq\t36(%%rsp),%s\n" regs.(0);*)
   Printf.fprintf oc "\tmovq\t%%rsi,%s\n" regs.(0);
   Printf.fprintf oc "\tmovq\t%s,%s\n" regs.(0) reg_hp;
   stackset := S.empty;
