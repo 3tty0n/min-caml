@@ -20,7 +20,6 @@ min_caml_print_newline:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	ALIGNSTACK1
-	#pushq	$10
   movq  $10, %rdi
 	call	U(putchar)
 	movq	%rbp, %rsp

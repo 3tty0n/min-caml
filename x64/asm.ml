@@ -43,7 +43,7 @@ let seq(e1, e2) = Let((Id.gentmp Type.Unit, Type.Unit), e1, e2)
 
 let regs = (* Array.init 16 (fun i -> Printf.sprintf "%%r%d" i) *)
   [| "%rax"; "%rbx"; "%rcx"; "%rdx"; "%rsi"; "%rdi" |]
-let fregs = Array.init 8 (fun i -> Printf.sprintf "%%xmm%d" i)
+let fregs = Array.init 16 (fun i -> Printf.sprintf "%%xmm%d" i)
 let allregs = Array.to_list regs
 let allfregs = Array.to_list fregs
 let reg_cl = regs.(Array.length regs - 1) (* closure address (caml2html: sparcasm_regcl) *)
