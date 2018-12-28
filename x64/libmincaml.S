@@ -204,11 +204,11 @@ min_caml_floor:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	ALIGNSTACK2
-	subq	$8, %rsp
-	movsd	%xmm0, (%rsp)
+	#subq	$8, %rsp
+	#movsd	%xmm0, (%rsp)
 	call	U(floor)
-	fstpl	(%rsp)
-	movsd	(%rsp), %xmm0
+	#fstpl	(%rsp)
+	#movsd	(%rsp), %xmm0
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -227,11 +227,11 @@ min_caml_cos:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	ALIGNSTACK2
-	subq	$8, %rsp
-	movsd	%xmm0, (%rsp)
+	#subq	$8, %rsp
+	#movsd	%xmm0, (%rsp)
 	call	U(cos)
-	fstpl	(%rsp)
-	movsd	(%rsp), %xmm0
+	#fstpl	(%rsp)
+	#movsd	(%rsp), %xmm0
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -240,11 +240,11 @@ min_caml_sin:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	ALIGNSTACK2
-	subq	$8, %rsp
-	movsd	%xmm0, (%rsp)
+	#subq	$8, %rsp
+	#movsd	%xmm0, (%rsp)
 	call	U(sin)
-	fstpl	(%rsp)
-	movsd	(%rsp), %xmm0
+	#fstpl	(%rsp)
+	#movsd	(%rsp), %xmm0
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -253,11 +253,11 @@ min_caml_atan:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	ALIGNSTACK2
-	subq	$8, %rsp
-	movsd	%xmm0, (%rsp)
+	#subq	$8, %rsp
+	#movsd	%xmm0, (%rsp)
 	call	U(atan)
-	fstpl	(%rsp)
-	movsd	(%rsp), %xmm0
+	#fstpl	(%rsp)
+	#movsd	(%rsp), %xmm0
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
