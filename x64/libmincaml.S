@@ -165,16 +165,16 @@ create_float_array_cont:
 	jmp	create_float_array_loop
 .globl min_caml_abs_float
 min_caml_abs_float:
-	pushq	%rbp
-	movq	%rsp, %rbp
+	#pushq	%rbp
+	#movq	%rsp, %rbp
 	ALIGNSTACK2
-	subq	$8, %rsp
-	movsd	%xmm0, (%rsp)
+	#subq	$8, %rsp
+	#movsd	%xmm0, (%rsp)
 	call	U(fabs)
-	fstpl	(%rsp)
-	movsd	(%rsp), %xmm0
-	movq	%rbp, %rsp
-	popq	%rbp
+	#fstpl	(%rsp)
+	#movsd	(%rsp), %xmm0
+	#movq	%rbp, %rsp
+	#popq	%rbp
 	ret
 .globl min_caml_sqrt
 min_caml_sqrt:
