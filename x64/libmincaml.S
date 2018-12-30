@@ -38,8 +38,8 @@ min_caml_print_int:
   movq  $format_int, %rdi
   movq  $0, %rax
 	call	U(printf)
-  popq  %rsi
   popq  %rdi
+  popq  %rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -47,9 +47,11 @@ min_caml_print_int:
 min_caml_print_byte:
 	pushq	%rbp
 	movq	%rsp, %rbp
+  pushq  %rdi
 	ALIGNSTACK1
-	pushq	%rax
+	movq	%rax, %rdi
 	call	U(putchar)
+  popq  %rdi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -57,11 +59,19 @@ min_caml_print_byte:
 min_caml_prerr_int:
 	pushq	%rbp
 	movq	%rsp, %rbp
+  pushq %rsi
+  pushq %rdi
+  pushq %rdx
 	ALIGNSTACK3
-	pushq	%rax
-	pushq	$format_int
-	pushq	U(min_caml_stderr)
+	movq	%rax, %rdx
+	movq	$format_int, %rsi
+	movq	U(min_caml_stderr), %rdi
+  movq  $0, %rax
 	call	U(fprintf)
+  movq  $0, %rax
+  popq  %rdx
+  popq  %rdi
+  popq  %rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -88,8 +98,8 @@ min_caml_print_float:
   movq  $1, %rax
 	call	U(fprintf)
   movq  $0, %rax
-  popq  %rsi
   popq  %rdi
+  popq  %rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -105,8 +115,8 @@ min_caml_prerr_float:
   movq  $1, %rax
 	call	U(fprintf)
   movq  $0, %rax
-  popq  %rsi
   popq  %rdi
+  popq  %rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -115,12 +125,13 @@ min_caml_read_int:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	ALIGNSTACK3
-	subq	$4, %rsp
-	leaq	-4(%rbp), %rax
-	pushq	%rax
-	pushq	$format_int
+	subq	$8, %rsp
+	leaq	-8(%rbp), %rax
+  movq  %rax, %rsi
+  movq  $format_int, %rdi
+  movq  $0, %rax
 	call	U(scanf)
-	movq	-4(%rbp), %rax
+	movq	-8(%rbp), %rax
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret

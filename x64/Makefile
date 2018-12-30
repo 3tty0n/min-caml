@@ -33,7 +33,7 @@ adder funcomp cls-rec cls-bug cls-bug2 cls-reg-bug \
 shuffle spill spill2 spill3 join-stack join-stack2 join-stack3 \
 join-reg join-reg2 non-tail-if non-tail-if2 \
 inprod inprod-rec inprod-loop matmul matmul-flat \
-manyargs float_simple int_of_float float_abs float_test print_newline
+manyargs float_test prerr_test read_test
 
 do_test: $(TESTS:%=test/%.cmp)
 
