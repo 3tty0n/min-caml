@@ -143,13 +143,19 @@ min_caml_read_int:
 min_caml_read_float:
 	pushq	%rbp
 	movq	%rsp, %rbp
+  pushq  %rsi #save
+  pushq  %rdi #save
 	ALIGNSTACK0
-	subq	$8, %rsp
-	leaq	-8(%rbp), %rax
-	pushq	%rax
-	pushq	$format_float
+	subq	$16, %rsp
+  movsd %xmm0, -16(%rbp)
+	leaq	-16(%rbp), %rax
+  movq  %rax, %rsi
+  movq  $format_read_float, %rdi
+  movq  $0, %rax
 	call	U(scanf)
-	movsd	-8(%rbp), %xmm0
+  movsd -16(%rbp), %xmm0
+  popq  %rdi
+  popq  %rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -280,8 +286,9 @@ min_caml_atan:
 format_int:
 	.asciz	"%d"
 format_float:
-	#.asciz	"%lf"
 	.asciz	"%g"
+format_read_float:
+	.asciz	"%lf"
 .balign 8
 float_0:
 	.long	0x0
