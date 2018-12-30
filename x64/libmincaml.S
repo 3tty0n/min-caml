@@ -124,6 +124,8 @@ min_caml_prerr_float:
 min_caml_read_int:
 	pushq	%rbp
 	movq	%rsp, %rbp
+  pushq  %rsi #save
+  pushq  %rdi #save
 	ALIGNSTACK3
 	subq	$8, %rsp
 	leaq	-8(%rbp), %rax
@@ -132,6 +134,8 @@ min_caml_read_int:
   movq  $0, %rax
 	call	U(scanf)
 	movq	-8(%rbp), %rax
+  popq  %rdi
+  popq  %rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
