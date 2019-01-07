@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ln -sf x64/{*.ml{,i},libmincaml.S,Makefile} .
-cd test; ln -sf x64/{,too}manyargs.ml .; cd ..
+cd test; ln -sf x64/{,too}manyargs/ml .; cd ..
 cd shootout; ln -sf x64/Makefile .; cd ..
-#cd bytemark; ln -sf x86/Makefile .; cd ..
-cd min-rt; ln -sf x86/globals.s .; cd ..
+cd bytemark; ln -sf x64/Makefile .; cd ..
+cd min-rt; ln -sf x64/globals.s .; cd ..
