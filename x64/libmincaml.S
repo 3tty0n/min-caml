@@ -19,11 +19,11 @@
 min_caml_print_newline:
 	pushq	%rbp
 	movq	%rsp, %rbp
-  pushq %rdi
+	pushq %rdi
 	ALIGNSTACK1
-  movq  $10, %rdi
+	movq	$10, %rdi
 	call	U(putchar)
-  popq  %rdi
+	popq	%rdi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -32,14 +32,14 @@ min_caml_print_int:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	ALIGNSTACK2
-  pushq  %rsi #save
-  pushq  %rdi #save
-  movq  %rax, %rsi
-  movq  $format_int, %rdi
-  movq  $0, %rax
+	pushq	 %rsi #save
+	pushq	 %rdi #save
+	movq	%rax, %rsi
+	movq	$format_int, %rdi
+	movq	$0, %rax
 	call	U(printf)
-  popq  %rdi
-  popq  %rsi
+	popq	%rdi
+	popq	%rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -47,11 +47,11 @@ min_caml_print_int:
 min_caml_print_byte:
 	pushq	%rbp
 	movq	%rsp, %rbp
-  pushq  %rdi
+	pushq	 %rdi
 	ALIGNSTACK1
 	movq	%rax, %rdi
 	call	U(putchar)
-  popq  %rdi
+	popq	%rdi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -59,19 +59,19 @@ min_caml_print_byte:
 min_caml_prerr_int:
 	pushq	%rbp
 	movq	%rsp, %rbp
-  pushq %rsi
-  pushq %rdi
-  pushq %rdx
+	pushq %rsi
+	pushq %rdi
+	pushq %rdx
 	ALIGNSTACK3
 	movq	%rax, %rdx
 	movq	$format_int, %rsi
 	movq	U(min_caml_stderr), %rdi
-  movq  $0, %rax
+  movq	$0, %rax
 	call	U(fprintf)
-  movq  $0, %rax
-  popq  %rdx
-  popq  %rdi
-  popq  %rsi
+	movq	$0, %rax
+	popq	%rdx
+	popq	%rdi
+	popq	%rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -90,16 +90,16 @@ min_caml_prerr_byte:
 min_caml_print_float:
 	pushq	%rbp
 	movq	%rsp, %rbp
-  pushq  %rsi #save
-  pushq  %rdi #save
+	pushq	 %rsi #save
+	pushq	 %rdi #save
 	ALIGNSTACK0
-  movq  $format_float, %rsi
-  movq  U(min_caml_stdout), %rdi
-  movq  $1, %rax
+	movq	$format_float, %rsi
+	movq	U(min_caml_stdout), %rdi
+	movq	$1, %rax
 	call	U(fprintf)
-  movq  $0, %rax
-  popq  %rdi
-  popq  %rsi
+	movq	$0, %rax
+	popq	%rdi
+	popq	%rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -107,16 +107,16 @@ min_caml_print_float:
 min_caml_prerr_float:
 	pushq	%rbp
 	movq	%rsp, %rbp
-  pushq  %rsi #save
-  pushq  %rdi #save
+	pushq	 %rsi #save
+	pushq	 %rdi #save
 	ALIGNSTACK0
-  movq  $format_float, %rsi
-  movq  U(min_caml_stderr), %rdi
-  movq  $1, %rax
+	movq	$format_float, %rsi
+	movq	U(min_caml_stderr), %rdi
+	movq	$1, %rax
 	call	U(fprintf)
-  movq  $0, %rax
-  popq  %rdi
-  popq  %rsi
+	movq	$0, %rax
+	popq	%rdi
+	popq	%rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -124,18 +124,18 @@ min_caml_prerr_float:
 min_caml_read_int:
 	pushq	%rbp
 	movq	%rsp, %rbp
-  pushq  %rsi #save
-  pushq  %rdi #save
+	pushq	 %rsi #save
+	pushq	 %rdi #save
 	ALIGNSTACK3
 	subq	$8, %rsp
 	leaq	-8(%rbp), %rax
-  movq  %rax, %rsi
-  movq  $format_int, %rdi
-  movq  $0, %rax
+	movq	%rax, %rsi
+	movq	$format_int, %rdi
+	movq	$0, %rax
 	call	U(scanf)
 	movq	-8(%rbp), %rax
-  popq  %rdi
-  popq  %rsi
+	popq	%rdi
+	popq	%rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -143,19 +143,19 @@ min_caml_read_int:
 min_caml_read_float:
 	pushq	%rbp
 	movq	%rsp, %rbp
-  pushq  %rsi #save
-  pushq  %rdi #save
+  pushq	 %rsi #save
+  pushq	 %rdi #save
 	ALIGNSTACK0
 	subq	$16, %rsp
   movsd %xmm0, -16(%rbp)
 	leaq	-16(%rbp), %rax
-  movq  %rax, %rsi
-  movq  $format_read_float, %rdi
-  movq  $0, %rax
+  movq	%rax, %rsi
+  movq	$format_read_float, %rdi
+  movq	$0, %rax
 	call	U(scanf)
   movsd -16(%rbp), %xmm0
-  popq  %rdi
-  popq  %rsi
+  popq	%rdi
+  popq	%rsi
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -172,7 +172,7 @@ min_caml_create_array:
 	addq	%rdx, min_caml_hp
 create_array_loop:
 	cmpq	$0, %rcx
-	jne	create_array_cont
+	jne create_array_cont
 create_array_exit:
 	popq	%rdx
 	popq	%rcx
@@ -182,7 +182,7 @@ create_array_exit:
 create_array_cont:
 	decq	%rcx
 	movq	%rbx, (%rax,%rcx,8)
-	jmp	create_array_loop
+	jmp create_array_loop
 .globl min_caml_create_float_array
 min_caml_create_float_array:
 	pushq	%rbp
@@ -196,7 +196,7 @@ min_caml_create_float_array:
 	addq	%rdx, min_caml_hp
 create_float_array_loop:
 	cmpq	$0, %rcx
-	jne	create_float_array_cont
+	jne create_float_array_cont
 create_float_array_exit:
 	popq	%rdx
 	popq	%rcx
@@ -206,7 +206,7 @@ create_float_array_exit:
 create_float_array_cont:
 	decq	%rcx
 	movsd	%xmm0, (%rax,%rcx,8)
-	jmp	create_float_array_loop
+	jmp create_float_array_loop
 .globl min_caml_abs_float
 min_caml_abs_float:
 	pushq	%rbp
@@ -304,5 +304,5 @@ min_caml_fnegd:
 	.long	0
 	.long	0
 .globl min_caml_hp
-min_caml_hp:	
+min_caml_hp:
 	.long	0x0

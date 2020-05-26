@@ -1,5 +1,5 @@
 # Sumii's Makefile for Min-Caml (for GNU Make)
-# 
+#
 # ack.mlなどのテストプログラムをtest/に用意してmake do_testを実行すると、
 # min-camlとocamlでコンパイル・実行した結果を自動で比較します。
 
@@ -7,7 +7,8 @@ RESULT = min-caml
 NCSUFFIX = .opt
 CC = gcc
 CFLAGS = -g -O2 -Wall
-OCAMLLDFLAGS=-warn-error -31
+LDFLAGS = -lm -no-pie
+OCAMLLDFLAGS = -warn-error -31
 
 default: debug-code top $(RESULT) do_test
 $(RESULT): debug-code top
@@ -33,7 +34,8 @@ adder funcomp cls-rec cls-bug cls-bug2 cls-reg-bug \
 shuffle spill spill2 spill3 join-stack join-stack2 join-stack3 \
 join-reg join-reg2 non-tail-if non-tail-if2 \
 inprod inprod-rec inprod-loop matmul matmul-flat \
-manyargs float_test prerr_test read_test
+manyargs float_test prerr_test
+# read_test
 
 do_test: $(TESTS:%=test/%.cmp)
 
@@ -43,7 +45,7 @@ TRASH = $(TESTS:%=test/%.s) $(TESTS:%=test/%) $(TESTS:%=test/%.res) $(TESTS:%=te
 test/%.s: $(RESULT) test/%.ml
 	./$(RESULT) test/$*
 test/%: test/%.s libmincaml.S stub.c
-	$(CC) $(CFLAGS) $^ -lm -o $@
+	$(CC) $(CFLAGS) $^ -lm -o $@ $(LDFLAGS)
 test/%.res: test/%
 	$< > $@
 test/%.ans: test/%.ml
